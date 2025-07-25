@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/hooks/useAuth";
+import BlogList from "@/components/BlogList";
 
-export default function Home() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,7 +24,7 @@ export default function Home() {
     if (error) {
       setMessage("Giriş hatası: " + error.message);
     } else {
-      setMessage("Giriş başarılı adamsın!");
+      setMessage("Giriş başarılı!");
     }
     setLoading(false);
   };
@@ -129,4 +131,24 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export default function Home() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Yükleniyor...</div>
+      </div>
+    );
+  }
+
+  // Kullanıcı giriş yapmışsa blog listesini göster
+  if (user) {
+    return <BlogList />;
+  }
+
+  // Kullanıcı giriş yapmamışsa login formunu göster
+  return <LoginForm />;
 }
