@@ -22,7 +22,7 @@ export default function Home() {
     if (error) {
       setMessage("Giriş hatası: " + error.message);
     } else {
-      setMessage("Giriş başarılı!");
+      setMessage("Giriş başarılı adamsın!");
     }
     setLoading(false);
   };
