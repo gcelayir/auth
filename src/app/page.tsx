@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
-import BlogList from "@/components/BlogList";
+import Layout from "@/components/Layout";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -144,9 +144,9 @@ export default function Home() {
     );
   }
 
-  // Kullanıcı giriş yapmışsa blog listesini göster
+  // Kullanıcı giriş yapmışsa Layout'u göster (Dashboard + Blog Navigation)
   if (user) {
-    return <BlogList />;
+    return <Layout />;
   }
 
   // Kullanıcı giriş yapmamışsa login formunu göster
